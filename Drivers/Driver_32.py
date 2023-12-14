@@ -75,6 +75,7 @@ class Driver_32(DriverBase):
                 pass
 
 
+
     def get_corner(self,direction,prev_corner_in_dir, apex_or_edge,edge,track_sensor,map_size,track_width):
         if edge:
             line1 = track_sensor.is_path_homogeneous((apex_or_edge[0],apex_or_edge[1]),(abs(map_size[0]*direction[0]), abs(map_size[1]*direction[1])))
