@@ -5,7 +5,7 @@ from Model.Sensors.CarSensor import CarSensor
 from Model.Sensors.LineSensor import LineSensor
 
 
-class TestDriver(DriverBase):
+class Driver_32(DriverBase):
 
     def _think(self, car_sensor: CarSensor, track_sensor: LineSensor):
         # default inputs
