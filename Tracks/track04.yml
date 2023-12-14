@@ -1,0 +1,26 @@
+image_file: Tracks/track04.png
+name: Track04
+down_sample: 5
+start:
+  from: { X: 250, Y: 125 }
+  to: { X: 250, Y: 174 }
+  direction: { X: 1, Y: 0 }
+splits:
+  - split 1:
+      from: { X: 450, Y: 125 }
+      to: { X: 450, Y: 174 }
+  - split 2:
+      from: { X: 525, Y: 250 }
+      to: { X: 574, Y: 250 }
+  - split 3:
+      from: { X: 525, Y: 450 }
+      to: { X: 574, Y: 450 }
+  - split 4:
+      from: { X: 500, Y: 525 }
+      to: { X: 500, Y: 574 }
+  - split 5:
+      from: { X: 325, Y: 400 }
+      to: { X: 374, Y: 400 }
+  - split 6:
+      from: { X: 225, Y: 300 }
+      to: { X: 274, Y: 300 }
