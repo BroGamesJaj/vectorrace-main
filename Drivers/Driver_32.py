@@ -32,11 +32,13 @@ class Driver_32(DriverBase):
             speed_vector_length = car_sensor.get_speed_vector_length()
 
         # custom values from the storage to local variables
-
+        is_first_run = self.storage.get("first_run", True)
         total_length = self.storage.get("total_length", 0)
 
         # use local variables
         total_length += math.sqrt(speed_y ** 2 + speed_x ** 2)
+        if is_first_run:
+            print("Track size: {0}".format(track_sensor.get_track_size()))
 
         # update custom values in the storage
         self.storage.set("first_run", False)
@@ -71,5 +73,14 @@ class Driver_32(DriverBase):
                 # turn
                 pass
 
-    # prev_corner_turn: 0 no_prev_corner, down 1, left 2, up 3, right 4
-    # prev_corner_apex_pos: False
+
+    def get_braking_point(self, max_corner_speed, current_speed):
+        braking_point = (current_speed - max_corner_speed)
+        return braking_point
+
+    def can_speed_up(self, braking_point, corner_pos, current_pos):
+        dist = math.sqrt(abs(current_pos[0] - corner_pos[0]) ** 2 + abs(current_pos[1] - corner_pos[1]) ** 2)
+        if dist > braking_point:
+            return True
+        else:
+            return False
