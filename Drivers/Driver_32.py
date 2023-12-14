@@ -33,7 +33,6 @@ class Driver_32(DriverBase):
             speed_vector_length = car_sensor.get_speed_vector_length()
 
         # custom values from the storage to local variables
-        is_first_run = self.storage.get("first_run", True)
         total_length = self.storage.get("total_length", 0)
 
         # use local variables
@@ -54,6 +53,9 @@ class Driver_32(DriverBase):
             pos_x + speed_x + self.relative_speed_change[1]
         )
 
+        print(self.get_corner(start_direction, 0, (pos_y, pos_x), True, track_sensor, map_size, track_width))
+
+
         # test sensor read limit (sensor returns -1 if read limit reached)
         while track_sensor.can_scan():
             # sensor returns: PointOnTrackResult object
@@ -72,8 +74,7 @@ class Driver_32(DriverBase):
                 pass
             else:
                 # turn
-                pass
-
+                self.relative_speed_change = self.get_corner(start_direction, 0, (pos_y, pos_x), True, track_sensor, map_size, track_width)[2]
 
 
     def get_corner(self,direction,prev_corner_in_dir, apex_or_edge,edge,track_sensor,map_size,track_width):
