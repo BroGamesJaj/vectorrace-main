@@ -55,3 +55,15 @@ class Driver_32(DriverBase):
             else:
                 # turn
                 pass
+
+
+    def get_breaking_point(self, max_corner_speed, current_speed):
+        braking_point = (current_speed - max_corner_speed)
+        return braking_point
+
+    def can_speed_up(self, braking_point, corner_pos, current_pos):
+        dist = math.sqrt(abs(current_pos[0] - corner_pos[0]) ** 2 + abs(current_pos[1] - corner_pos[1]) ** 2)
+        if dist > braking_point:
+            return True
+        else:
+            return False
