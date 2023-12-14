@@ -28,6 +28,7 @@ class Driver_32(DriverBase):
 
         if not is_first_run:
             iteration += 1
+
             speed_y, speed_x = car_sensor.get_speed()
             speed_vector_length = car_sensor.get_speed_vector_length()
 
