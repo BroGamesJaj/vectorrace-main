@@ -83,21 +83,22 @@ class Driver_32(DriverBase):
                 pass
 
     def get_corner(self, direction, prev_corner_in_dir, apex_or_edge, edge, track_sensor, map_size, track_width):
-        print("hello")
         if edge:
             line1 = track_sensor.is_path_homogeneous((apex_or_edge[0], apex_or_edge[1]),
                                                      (abs(map_size[0] * direction[0]), abs(map_size[1] * direction[1])))
+
             if direction == [0, -1]:
-                line2_start = apex_or_edge[0] + 2 + track_width
+                line2_start = apex_or_edge[0] + 2 + track_width, apex_or_edge[1]
             elif direction == [1, 0]:
-                line2_start = apex_or_edge[1] + 2 + track_width
+                line2_start = apex_or_edge[1] + 2 + track_width, apex_or_edge[0]
             elif direction == [0, 1]:
-                line2_start = apex_or_edge[0] - 2 - track_width
+                line2_start = apex_or_edge[0] - 2 - track_width, apex_or_edge[1]
             else:
-                line2_start = apex_or_edge[1] - 2 - track_width
+                line2_start = apex_or_edge[1] - 2 - track_width, apex_or_edge[0]
             line2 = track_sensor.is_path_homogeneous((line2_start[0], line2_start[1]),
                                                      (abs(map_size[0] * direction[0]), abs(map_size[1] * direction[1])))
             if abs(line1.last_same_as_start[0] - apex_or_edge[0]) + abs(line1.last_same_as_start[1] - apex_or_edge[1]) - abs(line2.last_same_as_start[0] - line2_start[0]) + abs(line2.last_same_as_start[1] - line2_start[1]) > 0:
+
                 if direction[0] == 0 and direction[1] == -1:
                     return [line1.last_same_as_start[0] + 1, line1.last_same_as_start[1] - 1], direction, (-1, 0)
                 elif direction[0] == 1 and direction[1] == 0:
@@ -137,13 +138,13 @@ class Driver_32(DriverBase):
             line1 = track_sensor.is_path_homogeneous((start_pos[0], start_pos[1]),
                                                      (abs(map_size[0] * direction[0]), abs(map_size[1] * direction[1])))
             if direction == [0, -1]:
-                line2_start = start_pos[0] + 2 + track_width
+                line2_start = start_pos[0] + 2 + track_width, start_pos[1]
             elif direction == [1, 0]:
-                line2_start = start_pos[1] + 2 + track_width
+                line2_start = start_pos[1] + 2 + track_width, start_pos[0]
             elif direction == [0, 1]:
-                line2_start = start_pos[0] - 2 - track_width
+                line2_start = start_pos[0] - 2 - track_width, start_pos[1]
             else:
-                line2_start = start_pos[1] - 2 - track_width
+                line2_start = start_pos[1] - 2 - track_width, start_pos[0]
             line2 = track_sensor.is_path_homogeneous((line2_start[0], line2_start[1]),
                                                      (abs(map_size[0] * direction[0]), abs(map_size[1] * direction[1])))
 
