@@ -57,7 +57,7 @@ class Driver_32(DriverBase):
                 pass
 
 
-    def get_breaking_point(self, max_corner_speed, current_speed):
+    def get_braking_point(self, max_corner_speed, current_speed):
         braking_point = (current_speed - max_corner_speed)
         return braking_point
 
