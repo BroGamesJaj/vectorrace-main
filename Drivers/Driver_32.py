@@ -9,19 +9,34 @@ class Driver_32(DriverBase):
 
     def _think(self, car_sensor: CarSensor, track_sensor: LineSensor):
         # default inputs
+        track_width = 0
+        first_corner_apex = [0,0]
+        start_direction = 0
+        iteration = 0
+        map_size = [0,0]
+        speed_y, speed_x = 0,0
         pos_y, pos_x = car_sensor.get_position()
-        speed_y, speed_x = car_sensor.get_speed()
-        speed_vector_length = car_sensor.get_speed_vector_length()
-        iteration = car_sensor.get_iteration()
+        is_first_run = self.storage.get("first_run", True)
+        if is_first_run:
+            iteration = 1
+            map_size = track_sensor.get_track_size()
+            start_direction = track_sensor.get_start_direction()
+            print("Track size: {0}".format(track_sensor.get_track_size()))
+            track_width = track_sensor.is_path_homogeneous((pos_y,pos_x),(abs(map_size[0]*start_direction[0]),abs(map_size[1]*start_direction[1])))
+            track_width = abs(track_width.last_same_as_start - (pos_y,pos_x))
+            track_width = (track_width[0] + track_width[1]) * 2
+
+        if not is_first_run:
+            iteration += 1
+            speed_y, speed_x = car_sensor.get_speed()
+            speed_vector_length = car_sensor.get_speed_vector_length()
 
         # custom values from the storage to local variables
-        is_first_run = self.storage.get("first_run", True)
+
         total_length = self.storage.get("total_length", 0)
 
         # use local variables
         total_length += math.sqrt(speed_y ** 2 + speed_x ** 2)
-        if is_first_run:
-            print("Track size: {0}".format(track_sensor.get_track_size()))
 
         # update custom values in the storage
         self.storage.set("first_run", False)
@@ -55,3 +70,6 @@ class Driver_32(DriverBase):
             else:
                 # turn
                 pass
+
+    # prev_corner_turn: 0 no_prev_corner, down 1, left 2, up 3, right 4
+    # prev_corner_apex_pos: False
