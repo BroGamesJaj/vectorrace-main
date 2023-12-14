@@ -1,0 +1,2 @@
+class SensorResultBase:
+    pass
